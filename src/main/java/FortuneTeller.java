@@ -20,16 +20,19 @@ public class FortuneTeller {
     private final String CLOSE_URL = ".html";
     public String[] horoscope;
 
+
+    /**
+     * main method, calls FortuneTeller class and sends Strings sign to userInput() to be
+     * sent to the Horoscope.com URI
+     * @param args
+     */
     public static void main(String[] args){
         //start program
         FortuneTeller ft = new FortuneTeller();
         String sign;
 
-
         System.out.println("Please enter sign:");
         sign = ft.UserInput();
-
-        //String horoscope[] = new String[0];
 
         try {
             ft.horoscope = ft.getHoroscopeURL(sign);
@@ -42,11 +45,12 @@ public class FortuneTeller {
         String myDate = ft.getDate();
 
         ft.output(myDate);
-
-
-
     }
 
+    /**
+     * outputs values requested in program.
+     * @param date
+     */
     private void output(String date) {
         System.out.println("Today's Date: " + date);
 
@@ -58,6 +62,11 @@ public class FortuneTeller {
 
     }
 
+    /**
+     * gets today's date for reference.
+     *
+     * @return String
+     */
     private String getDate() {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
@@ -67,11 +76,30 @@ public class FortuneTeller {
         return todaysDate;
     }
 
+    /**
+     * scanner class used for simple input.
+     *
+     * @return String
+     */
     private String UserInput() {
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
 
+    /**
+     * getHoroscopeURL()
+     *
+     * retrieves horoscope information using jSoup import
+     * scrape using css query and splits the value by sentence (".")
+     * in order to neatly format in terminal.
+     *
+     * accepts String sign: can be any sign (gemini, pieces, etc.)
+     * 
+     *
+     * @param sign
+     * @returns String[]
+     * @throws IOException
+     */
     private String[] getHoroscopeURL(String sign) throws IOException {
         org.jsoup.nodes.Document doc = Jsoup.connect(HOROSCOPE_URL + sign + CLOSE_URL).userAgent("Mozilla/5.0").get();
 
