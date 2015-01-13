@@ -94,7 +94,7 @@ public class FortuneTeller {
      * in order to neatly format in terminal.
      *
      * accepts String sign: can be any sign (gemini, pieces, etc.)
-     * 
+     *
      *
      * @param sign
      * @returns String[]
