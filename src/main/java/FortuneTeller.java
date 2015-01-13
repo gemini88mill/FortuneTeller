@@ -18,27 +18,39 @@ public class FortuneTeller {
 
     private final String HOROSCOPE_URL = "http://my.horoscope.com/astrology/free-daily-horoscope-";
     private final String CLOSE_URL = ".html";
+    public String[] horoscope;
 
     public static void main(String[] args){
         //start program
         FortuneTeller ft = new FortuneTeller();
         String sign;
 
-        ft.getDate();
+
         System.out.println("Please enter sign:");
         sign = ft.UserInput();
 
-        String horoscope[] = new String[0];
+        //String horoscope[] = new String[0];
 
         try {
-            horoscope = ft.getHoroscopeURL(sign);
+            ft.horoscope = ft.getHoroscopeURL(sign);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        String myDate = ft.getDate();
 
+        ft.output(myDate);
+
+
+
+    }
+
+    private void output(String date) {
+        System.out.println("Today's Date: " + date);
+
+        System.out.println("Today's Horoscope:");
 
         for (int x = 0; x < horoscope.length; x++){
             System.out.println(horoscope[x]);
@@ -46,14 +58,13 @@ public class FortuneTeller {
 
     }
 
-    private void getDate() {
+    private String getDate() {
         Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String getDate = format.getCalendar().toString();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 
-        System.out.println();
+        String todaysDate = format.format(new Date());
 
+        return todaysDate;
     }
 
     private String UserInput() {
